@@ -1,0 +1,17 @@
+fiap\br\challenge\ChallengeApplication.class
+fiap\br\challenge\controller\FeedbackController.class
+fiap\br\challenge\repository\FeedbackRepository.class
+fiap\br\challenge\domain\Compra.class
+fiap\br\challenge\FilialDTO.class
+fiap\br\challenge\domain\Feedback.class
+fiap\br\challenge\domain\Cliente.class
+fiap\br\challenge\controller\FilialController.class
+fiap\br\challenge\controller\CompraController.class
+fiap\br\challenge\repository\ClienteRepository.class
+fiap\br\challenge\repository\CompraRepository.class
+fiap\br\challenge\domain\Categoria.class
+fiap\br\challenge\controller\ClienteController.class
+fiap\br\challenge\domain\Filial.class
+fiap\br\challenge\domain\Tendencia.class
+fiap\br\challenge\repository\FilialRepository.class
+fiap\br\challenge\domain\Produto.class

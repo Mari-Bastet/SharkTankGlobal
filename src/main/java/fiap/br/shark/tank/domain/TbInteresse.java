@@ -3,6 +3,8 @@ package fiap.br.shark.tank.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -36,6 +38,7 @@ public class TbInteresse implements Serializable {
         name = "TB_INTERESSE_USUARIO",
         joinColumns = @JoinColumn(name = "ID_INTERESSE"), 
         inverseJoinColumns = @JoinColumn(name = "ID_USUARIO"))
+    @JsonBackReference
 	private List<TbUsuario> tbUsuarios;
     
 	

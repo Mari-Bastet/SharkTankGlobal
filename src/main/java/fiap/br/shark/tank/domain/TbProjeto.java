@@ -70,7 +70,7 @@ public class TbProjeto implements Serializable {
 
 	//bi-directional many-to-one association to TbMonitoramentoProjeto
 	@OneToMany(mappedBy="tbProjeto")
-	private List<TbMonitoramentoProjeto> tbMonitoramentoProjetos;
+	private List<TbMonitoramentoProjeto> historicoProjetos;
 
 	//bi-directional many-to-one association to TbUsuario
 	@ManyToOne
@@ -235,11 +235,11 @@ public class TbProjeto implements Serializable {
 	}
 
 	public List<TbMonitoramentoProjeto> getTbMonitoramentoProjetos() {
-		return this.tbMonitoramentoProjetos;
+		return this.historicoProjetos;
 	}
 
 	public void setTbMonitoramentoProjetos(List<TbMonitoramentoProjeto> tbMonitoramentoProjetos) {
-		this.tbMonitoramentoProjetos = tbMonitoramentoProjetos;
+		this.historicoProjetos = tbMonitoramentoProjetos;
 	}
 
 	public TbMonitoramentoProjeto addTbMonitoramentoProjeto(TbMonitoramentoProjeto tbMonitoramentoProjeto) {

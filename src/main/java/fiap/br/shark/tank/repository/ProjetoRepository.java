@@ -20,12 +20,4 @@ public interface ProjetoRepository extends JpaRepository<TbProjeto, Long>{
 	@Query("select p from TbProjeto p where p.status not in ('P','C') ")
 	List<TbProjeto> listaProjetosAtivos();
 	
-//	@Query("  select pro.titulo "
-//			+ "   ,      pro.metaFinanciamento "
-//			+ "   ,      sum(inv.quantia) quantiaDoada "
-//			+ "   ,      pro.metaFinanciamento - sum(inv.quantia) restante "
-//			+ "  from TbInvestimento"
-//			+ "  INNER JOIN TbProjeto pro ON inv.idProjeto = pro.idProjeto"
-//			+ "  group by pro.titulo"
-//			+ "  ,        pro.metaFnanciamento")
 }

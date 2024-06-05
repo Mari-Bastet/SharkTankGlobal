@@ -32,7 +32,8 @@ public class TbInvestimento implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_INVESTIMENTO")
 	private Date dataInvestimento;
-
+	
+	@Column
 	private BigDecimal quantia;
 
 	//bi-directional many-to-one association to TbProjeto

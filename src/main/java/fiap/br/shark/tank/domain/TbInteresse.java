@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 
@@ -21,7 +21,6 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="TB_INTERESSE")
-@NamedQuery(name="TbInteresse.findAll", query="SELECT t FROM TbInteresse t")
 public class TbInteresse implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,7 +31,8 @@ public class TbInteresse implements Serializable {
 
 	@Column
 	private String interesse;
-	
+
+	@JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "TB_INTERESSE_USUARIO",
@@ -61,12 +61,12 @@ public class TbInteresse implements Serializable {
 		this.interesse = interesse;
 	}
 
-	public List<TbUsuario> getTbUsuarios() {
-		return this.tbUsuarios;
-	}
-
-	public void setTbUsuarios(List<TbUsuario> tbUsuarios) {
-		this.tbUsuarios = tbUsuarios;
-	}
+//	public List<TbUsuario> getTbUsuarios() {
+//		return this.tbUsuarios;
+//	}
+//
+//	public void setTbUsuarios(List<TbUsuario> tbUsuarios) {
+//		this.tbUsuarios = tbUsuarios;
+//	}
 
 }

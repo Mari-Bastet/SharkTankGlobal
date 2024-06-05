@@ -3,6 +3,7 @@ package fiap.br.shark.tank.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -24,7 +25,6 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="TB_USUARIO")
-@NamedQuery(name="TbUsuario.findAll", query="SELECT t FROM TbUsuario t")
 public class TbUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -57,6 +57,7 @@ public class TbUsuario implements Serializable {
 //	private List<TbInteresse> tbInteresses1;
 
 	//bi-directional many-to-many association to TbInteresse
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="TB_INTERESSE_USUARIO"
@@ -80,6 +81,10 @@ public class TbUsuario implements Serializable {
 	private List<TbRecomendacao> tbRecomendacoes;
 
 	public TbUsuario() {
+	}
+	
+	public TbUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public long getIdUsuario() {
@@ -122,71 +127,71 @@ public class TbUsuario implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public List<TbAvaliacoesProjeto> getTbAvaliacoesProjetos() {
-		return this.tbAvaliacoesProjetos;
-	}
-
-	public void setTbAvaliacoesProjetos(List<TbAvaliacoesProjeto> tbAvaliacoesProjetos) {
-		this.tbAvaliacoesProjetos = tbAvaliacoesProjetos;
-	}
-
-	public TbAvaliacoesProjeto addTbAvaliacoesProjeto(TbAvaliacoesProjeto tbAvaliacoesProjeto) {
-		getTbAvaliacoesProjetos().add(tbAvaliacoesProjeto);
-		tbAvaliacoesProjeto.setTbUsuario(this);
-
-		return tbAvaliacoesProjeto;
-	}
-
-	public TbAvaliacoesProjeto removeTbAvaliacoesProjeto(TbAvaliacoesProjeto tbAvaliacoesProjeto) {
-		getTbAvaliacoesProjetos().remove(tbAvaliacoesProjeto);
-		tbAvaliacoesProjeto.setTbUsuario(null);
-
-		return tbAvaliacoesProjeto;
-	}
-
-	public List<TbComunicacao> getTbComunicacaos() {
-		return this.tbComunicacaos;
-	}
-
-	public void setTbComunicacaos(List<TbComunicacao> tbComunicacaos) {
-		this.tbComunicacaos = tbComunicacaos;
-	}
-
-	public TbComunicacao addTbComunicacao(TbComunicacao tbComunicacao) {
-		getTbComunicacaos().add(tbComunicacao);
-		tbComunicacao.setTbUsuario(this);
-
-		return tbComunicacao;
-	}
-
-	public TbComunicacao removeTbComunicacao(TbComunicacao tbComunicacao) {
-		getTbComunicacaos().remove(tbComunicacao);
-		tbComunicacao.setTbUsuario(null);
-
-		return tbComunicacao;
-	}
-
-	public List<TbEducacaoEngajamento> getTbEducacaoEngajamentos() {
-		return this.tbEducacaoEngajamentos;
-	}
-
-	public void setTbEducacaoEngajamentos(List<TbEducacaoEngajamento> tbEducacaoEngajamentos) {
-		this.tbEducacaoEngajamentos = tbEducacaoEngajamentos;
-	}
-
-	public TbEducacaoEngajamento addTbEducacaoEngajamento(TbEducacaoEngajamento tbEducacaoEngajamento) {
-		getTbEducacaoEngajamentos().add(tbEducacaoEngajamento);
-		tbEducacaoEngajamento.setTbUsuario(this);
-
-		return tbEducacaoEngajamento;
-	}
-
-	public TbEducacaoEngajamento removeTbEducacaoEngajamento(TbEducacaoEngajamento tbEducacaoEngajamento) {
-		getTbEducacaoEngajamentos().remove(tbEducacaoEngajamento);
-		tbEducacaoEngajamento.setTbUsuario(null);
-
-		return tbEducacaoEngajamento;
-	}
+//	public List<TbAvaliacoesProjeto> getTbAvaliacoesProjetos() {
+//		return this.tbAvaliacoesProjetos;
+//	}
+//
+//	public void setTbAvaliacoesProjetos(List<TbAvaliacoesProjeto> tbAvaliacoesProjetos) {
+//		this.tbAvaliacoesProjetos = tbAvaliacoesProjetos;
+//	}
+//
+//	public TbAvaliacoesProjeto addTbAvaliacoesProjeto(TbAvaliacoesProjeto tbAvaliacoesProjeto) {
+//		getTbAvaliacoesProjetos().add(tbAvaliacoesProjeto);
+//		tbAvaliacoesProjeto.setTbUsuario(this);
+//
+//		return tbAvaliacoesProjeto;
+//	}
+//
+//	public TbAvaliacoesProjeto removeTbAvaliacoesProjeto(TbAvaliacoesProjeto tbAvaliacoesProjeto) {
+//		getTbAvaliacoesProjetos().remove(tbAvaliacoesProjeto);
+//		tbAvaliacoesProjeto.setTbUsuario(null);
+//
+//		return tbAvaliacoesProjeto;
+//	}
+//
+//	public List<TbComunicacao> getTbComunicacaos() {
+//		return this.tbComunicacaos;
+//	}
+//
+//	public void setTbComunicacaos(List<TbComunicacao> tbComunicacaos) {
+//		this.tbComunicacaos = tbComunicacaos;
+//	}
+//
+//	public TbComunicacao addTbComunicacao(TbComunicacao tbComunicacao) {
+//		getTbComunicacaos().add(tbComunicacao);
+//		tbComunicacao.setTbUsuario(this);
+//
+//		return tbComunicacao;
+//	}
+//
+//	public TbComunicacao removeTbComunicacao(TbComunicacao tbComunicacao) {
+//		getTbComunicacaos().remove(tbComunicacao);
+//		tbComunicacao.setTbUsuario(null);
+//
+//		return tbComunicacao;
+//	}
+//
+//	public List<TbEducacaoEngajamento> getTbEducacaoEngajamentos() {
+//		return this.tbEducacaoEngajamentos;
+//	}
+//
+//	public void setTbEducacaoEngajamentos(List<TbEducacaoEngajamento> tbEducacaoEngajamentos) {
+//		this.tbEducacaoEngajamentos = tbEducacaoEngajamentos;
+//	}
+//
+//	public TbEducacaoEngajamento addTbEducacaoEngajamento(TbEducacaoEngajamento tbEducacaoEngajamento) {
+//		getTbEducacaoEngajamentos().add(tbEducacaoEngajamento);
+//		tbEducacaoEngajamento.setTbUsuario(this);
+//
+//		return tbEducacaoEngajamento;
+//	}
+//
+//	public TbEducacaoEngajamento removeTbEducacaoEngajamento(TbEducacaoEngajamento tbEducacaoEngajamento) {
+//		getTbEducacaoEngajamentos().remove(tbEducacaoEngajamento);
+//		tbEducacaoEngajamento.setTbUsuario(null);
+//
+//		return tbEducacaoEngajamento;
+//	}
 
 //	public List<TbInteresse> getTbInteresses1() {
 //		return this.tbInteresses1;
@@ -210,78 +215,78 @@ public class TbUsuario implements Serializable {
 //		return tbInteresses1;
 //	}
 
-	public List<TbInteresse> getTbInteresses() {
-		return this.tbInteresses;
-	}
+//	public List<TbInteresse> getTbInteresses() {
+//		return this.tbInteresses;
+//	}
+//
+//	public void setTbInteresses(List<TbInteresse> tbInteresses) {
+//		this.tbInteresses = tbInteresses;
+//	}
+//
+//	public List<TbInvestimento> getTbInvestimentos() {
+//		return this.tbInvestimentos;
+//	}
+//
+//	public void setTbInvestimentos(List<TbInvestimento> tbInvestimentos) {
+//		this.tbInvestimentos = tbInvestimentos;
+//	}
+//
+//	public TbInvestimento addTbInvestimento(TbInvestimento tbInvestimento) {
+//		getTbInvestimentos().add(tbInvestimento);
+//		tbInvestimento.setTbUsuario(this);
+//
+//		return tbInvestimento;
+//	}
+//
+//	public TbInvestimento removeTbInvestimento(TbInvestimento tbInvestimento) {
+//		getTbInvestimentos().remove(tbInvestimento);
+//		tbInvestimento.setTbUsuario(null);
+//
+//		return tbInvestimento;
+//	}
+//
+//	public List<TbProjeto> getTbProjetos() {
+//		return this.tbProjetos;
+//	}
+//
+//	public void setTbProjetos(List<TbProjeto> tbProjetos) {
+//		this.tbProjetos = tbProjetos;
+//	}
 
-	public void setTbInteresses(List<TbInteresse> tbInteresses) {
-		this.tbInteresses = tbInteresses;
-	}
+//	public TbProjeto addTbProjeto(TbProjeto tbProjeto) {
+//		getTbProjetos().add(tbProjeto);
+//		tbProjeto.setTbUsuario(this);
+//
+//		return tbProjeto;
+//	}
+//
+//	public TbProjeto removeTbProjeto(TbProjeto tbProjeto) {
+//		getTbProjetos().remove(tbProjeto);
+//		tbProjeto.setTbUsuario(null);
+//
+//		return tbProjeto;
+//	}
 
-	public List<TbInvestimento> getTbInvestimentos() {
-		return this.tbInvestimentos;
-	}
-
-	public void setTbInvestimentos(List<TbInvestimento> tbInvestimentos) {
-		this.tbInvestimentos = tbInvestimentos;
-	}
-
-	public TbInvestimento addTbInvestimento(TbInvestimento tbInvestimento) {
-		getTbInvestimentos().add(tbInvestimento);
-		tbInvestimento.setTbUsuario(this);
-
-		return tbInvestimento;
-	}
-
-	public TbInvestimento removeTbInvestimento(TbInvestimento tbInvestimento) {
-		getTbInvestimentos().remove(tbInvestimento);
-		tbInvestimento.setTbUsuario(null);
-
-		return tbInvestimento;
-	}
-
-	public List<TbProjeto> getTbProjetos() {
-		return this.tbProjetos;
-	}
-
-	public void setTbProjetos(List<TbProjeto> tbProjetos) {
-		this.tbProjetos = tbProjetos;
-	}
-
-	public TbProjeto addTbProjeto(TbProjeto tbProjeto) {
-		getTbProjetos().add(tbProjeto);
-		tbProjeto.setTbUsuario(this);
-
-		return tbProjeto;
-	}
-
-	public TbProjeto removeTbProjeto(TbProjeto tbProjeto) {
-		getTbProjetos().remove(tbProjeto);
-		tbProjeto.setTbUsuario(null);
-
-		return tbProjeto;
-	}
-
-	public List<TbRecomendacao> getTbRecomendacaos() {
-		return this.tbRecomendacoes;
-	}
-
-	public void setTbRecomendacaos(List<TbRecomendacao> tbRecomendacaos) {
-		this.tbRecomendacoes = tbRecomendacaos;
-	}
-
-	public TbRecomendacao addTbRecomendacao(TbRecomendacao tbRecomendacao) {
-		getTbRecomendacaos().add(tbRecomendacao);
-		tbRecomendacao.setTbUsuario(this);
-
-		return tbRecomendacao;
-	}
-
-	public TbRecomendacao removeTbRecomendacao(TbRecomendacao tbRecomendacao) {
-		getTbRecomendacaos().remove(tbRecomendacao);
-		tbRecomendacao.setTbUsuario(null);
-
-		return tbRecomendacao;
-	}
+//	public List<TbRecomendacao> getTbRecomendacaos() {
+//		return this.tbRecomendacoes;
+//	}
+//
+//	public void setTbRecomendacaos(List<TbRecomendacao> tbRecomendacaos) {
+//		this.tbRecomendacoes = tbRecomendacaos;
+//	}
+//
+//	public TbRecomendacao addTbRecomendacao(TbRecomendacao tbRecomendacao) {
+//		getTbRecomendacaos().add(tbRecomendacao);
+//		tbRecomendacao.setTbUsuario(this);
+//
+//		return tbRecomendacao;
+//	}
+//
+//	public TbRecomendacao removeTbRecomendacao(TbRecomendacao tbRecomendacao) {
+//		getTbRecomendacaos().remove(tbRecomendacao);
+//		tbRecomendacao.setTbUsuario(null);
+//
+//		return tbRecomendacao;
+//	}
 
 }

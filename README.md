@@ -11,13 +11,10 @@ Breno Giacoppini  - RM98695  - Artificial Intelligence <br>
 
 ## PROPOSTA DE SOLUÇÃO
 
-
-### Diagrama Entidade-Relacionamento
-
-
-
-### Diagrama de Classes
-
+É uma plataforma de crowdfunding voltada para projetos de economia azul, se apresenta como uma ferramenta estratégica para impulsionar iniciativas que visam solucionar desafios oceânicos. Com a integração da inteligência artificial (IA) nesse processo potencializa a capacidade de conectar investidores a projetos promissores, avaliando sua viabilidade e monitorando seu progresso de forma eficaz. 
+Além disso, a plataforma utiliza IA para avaliar a viabilidade e o impacto potencial dos projetos apresentados. Essa avaliação criteriosa garante que os investimentos sejam direcionados a iniciativas com maior probabilidade de sucesso e relevância, aumentando a confiança dos investidores na plataforma. 
+O monitoramento de desempenho é outra função importante, acompanhando o progresso dos projetos financiados, a plataforma fornece relatórios detalhados aos investidores, garantindo transparência e permitindo ajustes estratégicos quando necessário. 
+A plataforma também promove o engajamento comunitário, envolvendo as comunidades locais na concepção e implementação dos projetos. Esse engajamento é fundamental para garantir que as iniciativas atendam às necessidades reais das populações afetadas e promovam benefícios sociais.
 
 ## Passo a passo para rodar a aplicação
 
@@ -29,10 +26,7 @@ Breno Giacoppini  - RM98695  - Artificial Intelligence <br>
 
 2. Importe o projeto na IDE de sua preferência
 
-3. Rode a Classe "ChallengeApplication.java"
-
-
-## Endpoints da API
+3. Rode a Classe "SharkTankApplication.java"
 
  
  

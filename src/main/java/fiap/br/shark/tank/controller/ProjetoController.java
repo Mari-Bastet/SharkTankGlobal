@@ -1,8 +1,12 @@
 package fiap.br.shark.tank.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,64 +33,67 @@ public class ProjetoController {
 	UsuarioRepository usuaRepo;
 
 	@GetMapping("/{id}/historico")
-	public ResponseEntity<?> retornaHistoricoProjeto(@PathVariable Long id) {
+    public ResponseEntity<?> retornaHistoricoProjeto(@PathVariable Long id) {
+        try {
+            List<TbMonitoramentoProjeto> histProjeto = repo.listaHistoricoProjeto(id);
 
-		try {
-			List<TbMonitoramentoProjeto> histProjeto = repo.listaHistoricoProjeto(id);
+            if (histProjeto.isEmpty()) {
+                return ResponseEntity.ok(null);
+            } else {
+                List<EntityModel<TbMonitoramentoProjeto>> histProjetoResources = histProjeto.stream()
+                        .map(projeto -> EntityModel.of(projeto,
+                                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).retornaHistoricoProjeto(id)).withSelfRel()))
+                        .collect(Collectors.toList());
 
-			if (histProjeto.isEmpty()) {
-				return ResponseEntity.ok(null);
-
-			} else {
-				return ResponseEntity.ok(histProjeto);
-
-			}
-
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
-
-		}
-
-	}
+                return ResponseEntity.ok(CollectionModel.of(histProjetoResources,
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).retornaHistoricoProjeto(id)).withSelfRel()));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
+        }
+    }
 
 	@GetMapping
-	public ResponseEntity<?> listaProjetosAtivos() {
+    public ResponseEntity<?> listaProjetosAtivos() {
+        try {
+            List<TbProjeto> projetos = repo.listaProjetosAtivos();
 
-		try {
-			List<TbProjeto> projetos = repo.listaProjetosAtivos();
+            if (projetos.isEmpty()) {
+                return ResponseEntity.ok(null);
+            } else {
+                List<EntityModel<TbProjeto>> projetoResources = projetos.stream()
+                        .map(projeto -> EntityModel.of(projeto,
+                                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).listaProjetosAtivos()).withSelfRel(),
+                                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).retornaHistoricoProjeto(projeto.getIdProjeto())).withRel("historicoProjeto")))
+                        .collect(Collectors.toList());
 
-			if (projetos.isEmpty()) {
-				return ResponseEntity.ok(null);
-			} else {
-				return ResponseEntity.ok(projetos);
-
-			}
-
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
-
-		}
-
-	}
+                return ResponseEntity.ok(CollectionModel.of(projetoResources,
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).listaProjetosAtivos()).withSelfRel()));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
+        }
+    }
 	
-    @RequestMapping(value="/adicionar",method = RequestMethod.POST)
-	public ResponseEntity<?> adicionaProjeto(@RequestBody TbProjeto tbProjeto) {
+	@RequestMapping(value = "/adicionar", method = RequestMethod.POST)
+    public ResponseEntity<?> adicionaProjeto(@RequestBody TbProjeto tbProjeto) {
+        try {
+            TbUsuario usuario = usuaRepo.findById(tbProjeto.getTbUsuario().getIdUsuario())
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-		try {
-			
-			TbUsuario usuario = usuaRepo.findById(tbProjeto.getTbUsuario().getIdUsuario())
-				    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-			
-			tbProjeto.setTbUsuario(usuario);
-			repo.save(tbProjeto);
+            tbProjeto.setTbUsuario(usuario);
+            repo.save(tbProjeto);
 
-			return ResponseEntity.ok(tbProjeto);
+            EntityModel<TbProjeto> projetoResource = EntityModel.of(tbProjeto,
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).adicionaProjeto(tbProjeto)).withSelfRel(),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).retornaHistoricoProjeto(tbProjeto.getIdProjeto())).withRel("historico"),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProjetoController.class).listaProjetosAtivos()).withRel("projetosAtivos"));
 
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
-
-		}
-
-	}
-
+            return ResponseEntity.ok(projetoResource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("  " + e.getMessage());
+        }
+    }
 }
+
+

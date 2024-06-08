@@ -28,6 +28,9 @@ A plataforma também promove o engajamento comunitário, envolvendo as comunidad
 
 3. Rode a Classe "SharkTankApplication.java"
 
+###Deploy em Nuvem
+Link para acesso ao Deploy no DockerHub: https://hub.docker.com/repository/docker/marianaesteves/container-sharktank/general
+
  
  
   
